@@ -1,4 +1,4 @@
-trigger ContainerTrackerTrigger on SOBJECT (before insert, before update, after insert, after update) {
+trigger ContainerTrackerTrigger on Container__c (before insert, before update, after insert, after update) {
     if (Trigger.isBefore) {
         If (Trigger.isInsert) {
             // before Insert 
