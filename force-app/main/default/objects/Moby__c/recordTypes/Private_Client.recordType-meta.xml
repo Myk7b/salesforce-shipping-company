@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Private_Client</fullName>
+    <active>true</active>
+    <label>Private Client</label>
+    <picklistValues>
+        <picklist>Ship_Class__c</picklist>
+        <values>
+            <fullName>Feeder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedermax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Panamax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post-Panamax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Feeder</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

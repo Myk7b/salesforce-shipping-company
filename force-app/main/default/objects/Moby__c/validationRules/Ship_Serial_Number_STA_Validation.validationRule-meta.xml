@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ship_Serial_Number_STA_Validation</fullName>
+    <active>true</active>
+    <description>Ship Serial Number should start or contain “STA-”</description>
+    <errorConditionFormula>NOT (CONTAINS( Ship_Serial_Number__c , &quot;STA-&quot;))</errorConditionFormula>
+    <errorDisplayField>Ship_Serial_Number__c</errorDisplayField>
+    <errorMessage>Ship Serial Number should start or contain “STA-”</errorMessage>
+</ValidationRule>
