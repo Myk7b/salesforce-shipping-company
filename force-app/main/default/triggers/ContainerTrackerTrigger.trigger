@@ -1,18 +1,7 @@
-trigger ContainerTrackerTrigger on Container__c (before insert, before update, after insert, after update) {
-    if (Trigger.isBefore) {
+trigger ContainerTrackerTrigger on Container_Tracker__c (after insert) {
+    if (Trigger.isAfter) {
         If (Trigger.isInsert) {
-            // before Insert 
-        }
-        else if (Trigger.isUpdate) {
-            // before update
-        }
-    }
-    else if (Trigger.isAfter) {
-        If (Trigger.isInsert) {
-            ContainerTrackerHandler.onAfterInsert(); 
-        }
-        else if (Trigger.isUpdate) {
-            // after update
+            ContainerTrackerHelper.calculateContainerAssignments(Trigger.new); 
         }
     }
 }

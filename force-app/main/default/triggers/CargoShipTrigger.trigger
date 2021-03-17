@@ -1,18 +1,18 @@
 trigger CargoShipTrigger on Cargo_Ship__c (before insert, before update, after insert, after update) {
     if (Trigger.isBefore) {
         If (Trigger.isInsert) {
-            CargoShipHandler.onBeforeInsert();
+            CargoShipHelper.updateDetailsField(Trigger.new);
         }
         else if (Trigger.isUpdate) {
-            CargoShipHandler.onBeforeUpdate();
+            CargoShipHelper.deniedUpdateShipClassField(Trigger.new, Trigger.oldMap);
+            CargoShipHelper.SendNotificationContractDueDateChanged(Trigger.new, Trigger.oldMap);
         }
     }
     else if (Trigger.isAfter) {
         If (Trigger.isInsert) {
-            //after insert
         }
         else if (Trigger.isUpdate) {
-            CargoShipHandler.onAfterUpdate();
+            CargoShipHelper.sendEmailsToCapitan(Trigger.new, Trigger.oldMap);
         }
     }
 }

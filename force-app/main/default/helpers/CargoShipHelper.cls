@@ -1,4 +1,5 @@
 public with sharing class CargoShipHelper {
+
     private static string UserMail = 'tserulyk@gmail.com';
 	private static string CompanyName = 'Moby-Dick';
 	private static string FieldShipName = 'Cargo Ship Name';
@@ -9,11 +10,11 @@ public with sharing class CargoShipHelper {
 	private static string CustomNotifTypeName = 'Contract Due Date Changed';
 	private static string UserRoleName = 'Director of Transportation';
 
-    public static void sendEmailsToCapitan() { //after update
+    public static void sendEmailsToCapitan(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //after update
 		List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
     
-		for (Cargo_Ship__c shipRec: Trigger.new) {
-		Cargo_Ship__c shipOldRec = Trigger.oldMap.get(shipRec.Id);
+		for (Cargo_Ship__c shipRec: newShip) {
+		Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			if(shipRec.Capitan__c != shipOldRec.Capitan__c && String.IsNotBlank(shipRec.Capitan__c)) {
 
 				List<Cargo_Ship__c> CurrentCargo = [
@@ -31,7 +32,7 @@ public with sharing class CargoShipHelper {
 				mail.setToAddresses(capitanEmailsList);
 				mail.setReplyTo(UserMail);
 				mail.setSenderDisplayName(CompanyName);	
-				mail.setSubject('Welcome Aboard');        
+				mail.setSubject('Welcome Aboard');
 				mail.setHtmlBody('The ' + FieldShipName + ': ' + CurrentCargo[0].Name +
 								'<br>The ' + FieldShipSerialNumber + ': ' + CurrentCargo[0].Ship_Serial_Number__c +
 								'<br>The ' + FieldCargoShipClass + ': ' + CurrentCargo[0].Ship_Class__c +
@@ -42,8 +43,8 @@ public with sharing class CargoShipHelper {
     Messaging.sendEmail(mails);
     }
 
-	public static void updateDetailsField() { //before insert
-		for (Cargo_Ship__c shipRec: Trigger.new) {
+	public static void updateDetailsField(List<Cargo_Ship__c> newShip) { //before insert
+		for (Cargo_Ship__c shipRec: newShip) {
 			if (
 				String.IsNotBlank(shipRec.Ship_Details__c)
 				&& String.IsNotBlank(shipRec.Name)
@@ -57,10 +58,10 @@ public with sharing class CargoShipHelper {
 		}
 	}
 
-	public static void deniedUpdateShipClassField() { //before update
-		for (Cargo_Ship__c shipRec: Trigger.new) {
+	public static void deniedUpdateShipClassField(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //before update
+		for (Cargo_Ship__c shipRec: newShip) {
 
-			Cargo_Ship__c shipOldRec = Trigger.oldMap.get(shipRec.Id);
+			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			
 			if (shipRec.Ship_Class__c != shipOldRec.Ship_Class__c && String.IsNotBlank(shipOldRec.Ship_Class__c)) {
 				shipRec.adderror('The Field - ' + FieldShipClass + ' Can`t" be Changed!');
@@ -68,10 +69,10 @@ public with sharing class CargoShipHelper {
 		}
 	}
 
-	public static void SendNotificationContractDueDateChanged() { //before update
-		for (Cargo_Ship__c shipRec: Trigger.new) {
+	public static void SendNotificationContractDueDateChanged(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //before update
+		for (Cargo_Ship__c shipRec: newShip) {
 
-			Cargo_Ship__c shipOldRec = Trigger.oldMap.get(shipRec.Id);
+			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			
 			if (shipRec.Contract_Due_Date__c != shipOldRec.Contract_Due_Date__c) {
 
