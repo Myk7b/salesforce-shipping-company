@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Capacity</fullName>
+    <active>true</active>
+    <errorConditionFormula>Ship_Capacity_Status__c  = &quot;The ship is overloaded&quot;</errorConditionFormula>
+    <errorMessage>Too many containers. The ship is overloaded.</errorMessage>
+</ValidationRule>

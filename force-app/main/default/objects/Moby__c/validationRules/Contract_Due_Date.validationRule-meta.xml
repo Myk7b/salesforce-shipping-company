@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Due_Date</fullName>
+    <active>true</active>
+    <description>Contract Start Date should be &lt; Contract Due Date</description>
+    <errorConditionFormula>Contract_Due_Date__c  &lt;  Contract_Start_Date__c</errorConditionFormula>
+    <errorDisplayField>Contract_Due_Date__c</errorDisplayField>
+    <errorMessage>Contract Due Date must be greater than Contract Start Date</errorMessage>
+</ValidationRule>
