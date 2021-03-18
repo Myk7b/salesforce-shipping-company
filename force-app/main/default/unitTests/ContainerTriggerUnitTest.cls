@@ -11,12 +11,8 @@ public class ContainerTriggerUnitTest {
 		Test.startTest();
 		insert container;
 		Test.stopTest();
-		Approval.ProcessSubmitRequest app = new Approval.ProcessSubmitRequest();
-		app.setObjectId(container.id);
-		Approval.ProcessResult result = Approval.process(app);
+		ProcessInstance objProcessInstance = [SELECT Id, TargetObjectId, CreatedDate FROM ProcessInstance WHERE TargetObjectId = :container.Id];
+		System.debug(objProcessInstance.id);
+		System.assertEquals(objProcessInstance.TargetObjectId, container.id);
 	}
 }
-
-
-// ProcessInstance objProcessInstance = [SELECT Id,TargetObjectId, CreatedDate FROM ProcessInstance WHERE TargetObjectId = :container.Id];
-// System.assertEquals(container.CreatedDate,objProcessInstance.CreatedDate);

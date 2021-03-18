@@ -1,7 +1,7 @@
-trigger ContainerTrigger on Container__c (before insert, before update) {
-	if (Trigger.isBefore) {
+trigger ContainerTrigger on Container__c (after insert, after update) {
+	if (Trigger.isAfter) {
 		If (Trigger.isInsert || Trigger.isUpdate) {
-			ContainerHelper.startApproval(Trigger.new);
+			ContainerHelper.startApproval(Trigger.newMap);
 		}
 	}
 }

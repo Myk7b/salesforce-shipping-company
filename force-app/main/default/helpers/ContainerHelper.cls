@@ -1,8 +1,8 @@
 public with sharing class ContainerHelper {
-	public static void startApproval(List<Container__c> newContainer) { //before insert, before update
+	public static void startApproval(Map<Id,Container__c> newContainer) { //after insert, after update
 		List<Approval.ProcessSubmitRequest> approvalList = new List<Approval.ProcessSubmitRequest>();
     
-		for (Container__c containerRec: newContainer) {
+		for (Container__c containerRec: newContainer.values()) {
 	
 			if(containerRec.Status__c == 'Need inspection' && containerRec.Transportation_Counter__c >= 5) {
 				Approval.ProcessSubmitRequest request = new Approval.ProcessSubmitRequest();
