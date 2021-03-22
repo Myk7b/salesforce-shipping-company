@@ -97,4 +97,37 @@ public class CargoShipTriggerUnitTest {
 
 		system.assertEquals(1, emailInvocations, 'An email should be sent');
 	} 
+
+	public static testMethod void SendNotificationTest () {
+		Integer randomNumber = Integer.valueof((Math.random() * 10000));
+		String shipName = 'BMW-' + String.valueOf(randomNumber);
+		String sipSerialNumber = 'STA-' + String.valueOf(randomNumber);
+		String shipDetails = shipName + ' ' + sipSerialNumber;
+		Date contractStartDate = System.today();
+		Date contractDueDate = System.today() + 5;
+		Date contractNewDueDate = System.today() + 6;
+
+        Cargo_Ship__c cargoShip = new Cargo_Ship__c (
+            Name = shipName,
+            Ship_Serial_Number__c = sipSerialNumber,
+			Capacity__c = 10,
+			Length__c = 900,
+			Width__c = 300,
+			Height__c = 22,
+			Contract_Start_Date__c = contractStartDate,
+			Contract_Due_Date__c = contractDueDate
+
+        );
+		insert cargoShip;
+
+		List <Cargo_Ship__c> cargoShipList = new List <Cargo_Ship__c>();
+		for (Cargo_Ship__c updateCargoShip : [SELECT id FROM Cargo_Ship__c WHERE Name = :shipName]) {
+			updateCargoShip.Contract_Due_Date__c = contractNewDueDate;
+			cargoShipList.add(updateCargoShip);
+		}
+
+		Test.startTest();
+		update cargoShipList;
+		Test.stopTest();
+	}
 }

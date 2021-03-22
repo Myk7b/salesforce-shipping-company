@@ -1,0 +1,34 @@
+@IsTest
+public class ContainerTrackerTriggerUnitTest {
+    public static testMethod void updateDetailsFieldTest () {
+        Integer randomNumber = Integer.valueof((Math.random() * 10000));
+        String shipName = 'BMW-' + String.valueOf(randomNumber);
+        String sipSerialNumber = 'STA-' + String.valueOf(randomNumber);
+
+        Cargo_Ship__c cargoShip = new Cargo_Ship__c (
+            Name = shipName,
+            Ship_Serial_Number__c = sipSerialNumber,
+			Capacity__c = 10,
+			Length__c = 900,
+			Width__c = 300,
+			Height__c = 22
+		);
+		insert cargoShip;
+
+        Container__c container = new Container__c (
+			Length__c = 9,
+			Width__c = 3,
+			Height__c = 2
+		);
+		insert container;
+
+        Container_Tracker__c containerTracker = new Container_Tracker__c (
+            Cargo_Ship__c = cargoShip.id,
+            Container__c = container.id
+        );
+        insert containerTracker;
+
+        Decimal transportationCounter = [SELECT Transportation_Counter__c FROM Container__c WHERE id = :container.id].Transportation_Counter__c;
+        System.assertEquals(transportationCounter, 1);
+    }
+}

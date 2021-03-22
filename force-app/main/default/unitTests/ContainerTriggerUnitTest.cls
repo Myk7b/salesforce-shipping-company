@@ -7,10 +7,12 @@ public class ContainerTriggerUnitTest {
 			Height__c = 12,
 			Transportation_Counter__c = 10,
 			Status__c = 'Need inspection'
-        );
+		);
+		Test.startTest();
 		insert container;
-
-		ProcessInstance objProcessInstance = [SELECT Id,TargetObjectId, CreatedDate FROM ProcessInstance WHERE TargetObjectId = :container.Id];
-		System.assertEquals(container.CreatedDate,objProcessInstance.CreatedDate);
+		Test.stopTest();
+		ProcessInstance objProcessInstance = [SELECT Id, TargetObjectId, CreatedDate FROM ProcessInstance WHERE TargetObjectId = :container.Id];
+		System.debug(objProcessInstance.id);
+		System.assertEquals(objProcessInstance.TargetObjectId, container.id);
 	}
 }
