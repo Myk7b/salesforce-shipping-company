@@ -1,18 +1,16 @@
 public with sharing class ContainerTrackerHelper {
 	public static void calculateContainerAssignments(List<Container_Tracker__c> newContainerTracker) { //after insert
+		Id[] cIds = new List<Id>();
 
-		Set <String> containerName = New Set <String>();
 		for (Container_Tracker__c trackerRec: newContainerTracker) {
 			if (trackerRec.Container__c != Null) {
-	
-			String conName = [SELECT Name FROM Container__c WHERE id IN (Select Container__c FROM Container_Tracker__c WHERE Container_Tracker__c.Name = :trackerRec.Name)].Name;
-			containerName.add(conName);
+				cIds.add(trackerRec.Container__c);
 			}
 		}
 	
-		if(containerName.size() > 0) {
+		if(cIds.size() > 0) {
 			List <Container__c> conList = new List <Container__c>();
-			for (Container__c containerRec: [SELECT id, Transportation_Counter__c FROM Container__c WHERE Name in: containerName]) {
+			for (Container__c containerRec: [SELECT Transportation_Counter__c FROM Container__c WHERE id IN :cIds]) {
 				if (containerRec.Transportation_Counter__c != Null) {
 					containerRec.Transportation_Counter__c++;
 				}
