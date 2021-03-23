@@ -1,45 +1,48 @@
 public with sharing class CargoShipHelper {
 
-    private static string UserMail = 'tserulyk@gmail.com';
-	private static string CompanyName = 'Moby-Dick';
-	private static string FieldShipName = 'Cargo Ship Name';
-	private static string FieldShipSerialNumber = 'Ship Serial Number';
-	private static string FieldCargoShipClass = 'Cargo Ship Class';
-	private static string FieldShipCapacity = 'Ship Capacity';
-	private static string FieldShipClass = 'Ship Class';
-	private static string CustomNotifTypeName = 'Contract Due Date Changed';
-	private static string UserRoleName = 'Director of Transportation';
+	static string USER_MAIL = 'tserulyk@gmail.com';
+	static string COMPANY_NAME = 'Moby-Dick';
+	static string FIELD_SHIP_NAME = 'Cargo Ship Name';
+	static string FIELD_SHIP_SERIAL_NUMBER = 'Ship Serial Number';
+	static string FIELD_CARGO_SHIP_CALSS = 'Cargo Ship Class';
+	static string FIELD_SHIP_CAPACITY = 'Ship Capacity';
+	static string FIELD_SHIP_CLASS = 'Ship Class';
+	static string CUSTOM_NOTIFY_TYPE_NAME = 'Contract Due Date Changed';
+	static string USER_ROLE_NAME = 'Director of Transportation';
 
     public static void sendEmailsToCapitan(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //after update
 		List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
-    
-		for (Cargo_Ship__c shipRec: newShip) {
-		Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
-			if(shipRec.Capitan__c != shipOldRec.Capitan__c && String.IsNotBlank(shipRec.Capitan__c)) {
+		Id[] pIds = new List<Id>();
 
-				List<Cargo_Ship__c> CurrentCargo = [
+		for (Cargo_Ship__c shipRec: newShip) {
+			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
+			if(shipRec.Capitan__c != shipOldRec.Capitan__c && String.IsNotBlank(shipRec.Capitan__c)) {
+				pIds.add(shipRec.id);
+			}
+		}
+
+		if (pIds.size() > 0) {
+			List<Cargo_Ship__c> CurrentCargo = [
 					SELECT Name,
 					Ship_Serial_Number__c,
 					Ship_Class__c,
-					Capacity__c
-					FROM Cargo_Ship__c WHERE Cargo_Ship__c.ID__c = :shipRec.ID__c];
+					Capacity__c,
+					Capitan__r.Email__c
+					FROM Cargo_Ship__c WHERE Cargo_Ship__c.id IN :pIds];
 
-				String capitanEmail = [SELECT Email__c FROM Capitan__c WHERE id IN (SELECT Capitan__c FROM Cargo_Ship__c WHERE Cargo_Ship__c.ID__c = :shipRec.ID__c)].Email__c;
-				List<String> capitanEmailsList = new List<String>();
-				capitanEmailsList.add(capitanEmail);
-
+			for (Cargo_Ship__c cShip: CurrentCargo) {
 				Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();          
-				mail.setToAddresses(capitanEmailsList);
-				mail.setReplyTo(UserMail);
-				mail.setSenderDisplayName(CompanyName);	
-				mail.setSubject('Welcome Aboard');
-				mail.setHtmlBody('The ' + FieldShipName + ': ' + CurrentCargo[0].Name +
-								'<br>The ' + FieldShipSerialNumber + ': ' + CurrentCargo[0].Ship_Serial_Number__c +
-								'<br>The ' + FieldCargoShipClass + ': ' + CurrentCargo[0].Ship_Class__c +
-								'<br>The ' + FieldShipCapacity + ': ' + CurrentCargo[0].Capacity__c);
-				mails.add(mail);
+					mail.setToAddresses(new String[] {cShip.Capitan__r.Email__c});
+					mail.setReplyTo(USER_MAIL);
+					mail.setSenderDisplayName(COMPANY_NAME);	
+					mail.setSubject('Welcome Aboard');
+					mail.setHtmlBody('The ' + FIELD_SHIP_NAME + ': ' + cShip.Name +
+									'<br>The ' + FIELD_SHIP_SERIAL_NUMBER + ': ' + cShip.Ship_Serial_Number__c +
+									'<br>The ' + FIELD_CARGO_SHIP_CALSS + ': ' + cShip.Ship_Class__c +
+									'<br>The ' + FIELD_SHIP_CAPACITY + ': ' + cShip.Capacity__c);
+					mails.add(mail);
 			}
-		}
+		}	
     Messaging.sendEmail(mails);
     }
 
@@ -64,19 +67,20 @@ public with sharing class CargoShipHelper {
 			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			
 			if (shipRec.Ship_Class__c != shipOldRec.Ship_Class__c && String.IsNotBlank(shipOldRec.Ship_Class__c)) {
-				shipRec.adderror('The Field - ' + FieldShipClass + ' Can`t" be Changed!');
+				shipRec.adderror('The Field - ' + FIELD_SHIP_CLASS + ' Can`t" be Changed!');
 			}
 		}
 	}
 
 	public static void SendNotificationContractDueDateChanged(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //before update
+		List<User> user = [SELECT id FROM User WHERE userrole.name = :USER_ROLE_NAME];
 		for (Cargo_Ship__c shipRec: newShip) {
 
 			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			
 			if (shipRec.Contract_Due_Date__c != shipOldRec.Contract_Due_Date__c) {
 
-				CustomNotificationType notificationType = [SELECT Id FROM CustomNotificationType WHERE CustomNotifTypeName = :CustomNotifTypeName]; // id: 0ML090000010wFIGAY CustomNotifTypeName: Contract Due Date Changed
+				CustomNotificationType notificationType = [SELECT Id FROM CustomNotificationType WHERE CustomNotifTypeName = :CUSTOM_NOTIFY_TYPE_NAME]; //refactor
 				
 				Messaging.CustomNotification notification = new Messaging.CustomNotification();
 				Set<String> addresses = new Set<String>();
@@ -89,7 +93,7 @@ public with sharing class CargoShipHelper {
 				notification.setNotificationTypeId(notificationType.Id);
 				notification.setTargetId(shipRec.id);
 				
-				for (User objUser : [SELECT id FROM User WHERE userrole.name = :UserRoleName]) {
+				for (User objUser : user) {
 					addresses.add(objUser.id);
 					notification.send(addresses);
 				}
