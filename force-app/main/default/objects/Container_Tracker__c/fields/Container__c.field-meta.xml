@@ -3,7 +3,7 @@
     <fullName>Container__c</fullName>
     <externalId>false</externalId>
     <label>Container</label>
-    <referenceTo>Moby_Container__c</referenceTo>
+    <referenceTo>Container__c</referenceTo>
     <relationshipLabel>Containers Tracker</relationshipLabel>
     <relationshipName>Containers_Tracker</relationshipName>
     <relationshipOrder>1</relationshipOrder>

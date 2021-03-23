@@ -16,8 +16,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Small</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick Profile</profile>
     </profileActionOverrides>
@@ -25,8 +25,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick Profile</profile>
     </profileActionOverrides>
@@ -34,8 +34,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Small</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick Personnel Manager Profile</profile>
     </profileActionOverrides>
@@ -43,8 +43,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick Personnel Manager Profile</profile>
     </profileActionOverrides>
@@ -52,8 +52,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Small</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick  Director Profile</profile>
     </profileActionOverrides>
@@ -61,8 +61,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Moby-Dick  Director Profile</profile>
     </profileActionOverrides>
@@ -70,8 +70,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Small</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
@@ -79,8 +79,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
@@ -88,8 +88,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Small</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Standard</profile>
     </profileActionOverrides>
@@ -97,8 +97,8 @@
         <actionName>View</actionName>
         <content>X3_Column_view_Job_Position</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Moby__c</pageOrSobjectType>
-        <recordType>Moby__c.Contract</recordType>
+        <pageOrSobjectType>Cargo_Ship__c</pageOrSobjectType>
+        <recordType>Cargo_Ship__c.Contract</recordType>
         <type>Flexipage</type>
         <profile>Standard</profile>
     </profileActionOverrides>
@@ -143,9 +143,9 @@
         <profile>Admin</profile>
     </profileActionOverrides>
     <tabs>Capitan__c</tabs>
-    <tabs>Moby__c</tabs>
+    <tabs>Cargo_Ship__c</tabs>
     <tabs>Client__c</tabs>
-    <tabs>Moby_Container__c</tabs>
+    <tabs>Container__c</tabs>
     <tabs>Port__c</tabs>
     <tabs>Clent_company_name__c</tabs>
     <tabs>Moby_Contract__c</tabs>

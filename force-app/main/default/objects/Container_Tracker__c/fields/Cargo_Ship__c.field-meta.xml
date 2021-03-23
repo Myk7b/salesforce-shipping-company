@@ -3,7 +3,7 @@
     <fullName>Cargo_Ship__c</fullName>
     <externalId>false</externalId>
     <label>Cargo Ship</label>
-    <referenceTo>Moby__c</referenceTo>
+    <referenceTo>Cargo_Ship__c</referenceTo>
     <relationshipLabel>Containers Tracker</relationshipLabel>
     <relationshipName>Containers_Tracker</relationshipName>
     <relationshipOrder>0</relationshipOrder>

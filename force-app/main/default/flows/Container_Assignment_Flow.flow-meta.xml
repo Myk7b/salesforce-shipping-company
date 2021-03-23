@@ -125,7 +125,7 @@
         <displayField xsi:nil="true"/>
         <object xsi:nil="true"/>
         <picklistField>Color__c</picklistField>
-        <picklistObject>Moby_Container__c</picklistObject>
+        <picklistObject>Container__c</picklistObject>
     </dynamicChoiceSets>
     <formulas>
         <name>User_Name</name>
@@ -236,7 +236,7 @@
                 <elementReference>Container_Height</elementReference>
             </value>
         </filters>
-        <object>Moby_Container__c</object>
+        <object>Container__c</object>
         <outputReference>var_container_rec</outputReference>
         <queriedFields>Id</queriedFields>
     </recordLookups>
@@ -264,7 +264,7 @@
                 <elementReference>Ship_Serial_Number</elementReference>
             </value>
         </filters>
-        <object>Moby__c</object>
+        <object>Cargo_Ship__c</object>
         <outputReference>var_ship_rec</outputReference>
         <queriedFields>Id</queriedFields>
     </recordLookups>
@@ -432,7 +432,7 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <objectType>Moby_Container__c</objectType>
+        <objectType>Container__c</objectType>
     </variables>
     <variables>
         <name>var_ship_rec</name>
@@ -440,6 +440,6 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <objectType>Moby__c</objectType>
+        <objectType>Cargo_Ship__c</objectType>
     </variables>
 </Flow>

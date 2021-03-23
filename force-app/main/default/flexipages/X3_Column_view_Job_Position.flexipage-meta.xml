@@ -446,7 +446,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
-                    <value>Moby__c.Id</value>
+                    <value>Cargo_Ship__c.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
@@ -471,7 +471,7 @@
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>3 Column view - Job Position</masterLabel>
-    <sobjectType>Moby__c</sobjectType>
+    <sobjectType>Cargo_Ship__c</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
         <properties>
