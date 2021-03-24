@@ -36,9 +36,6 @@ public class ContainerTrackerTriggerUnitTest {
 		Test.startTest();
 		insert listContainerTracker;
 		Test.stopTest();
-		System.debug(listContainerTracker);
-
-
 		List<Container__c> transportationCounter = [SELECT Name FROM Container__c WHERE Transportation_Counter__c = 1];
 		System.assertEquals(transportationCounter.size(), 201);
 	}
