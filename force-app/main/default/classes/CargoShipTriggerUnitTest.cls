@@ -5,12 +5,12 @@ public class CargoShipTriggerUnitTest {
 		List<Cargo_Ship__c> listShip = new List<Cargo_Ship__c>();
 
 		for (Integer i = 0; i <= 200; i++) {
-			String shipName = 'BMW-' + String.valueOf(i);
-			String sipSerialNumber = 'STA-' + String.valueOf(i);
+			String SHIP_NAME = 'BMW-' + String.valueOf(i);
+			String SHIP_SERIAL_NUMBER = 'STA-C' + String.valueOf(i);
 
 			Cargo_Ship__c cargoShip = new Cargo_Ship__c (
-				Name = shipName,
-				Ship_Serial_Number__c = sipSerialNumber,
+				Name = SHIP_NAME,
+				Ship_Serial_Number__c = SHIP_SERIAL_NUMBER,
 				Capacity__c = 10,
 				Length__c = SHIP_LENGTH,
 				Width__c = 300,
@@ -28,38 +28,44 @@ public class CargoShipTriggerUnitTest {
 		}
     }
 
-	// public static testMethod void deniedUpdateShipClassFieldTest () {
-	// 	Integer randomNumber = Integer.valueof((Math.random() * 10000));
-	// 	String shipName = 'BMW-' + String.valueOf(randomNumber);
-	// 	String sipSerialNumber = 'STA-' + String.valueOf(randomNumber);
-	// 	String shipDetails = shipName + ' ' + sipSerialNumber;
-	// 	String fieldShipClass = 'Ship Class';
+	public static testMethod void deniedUpdateShipClassFieldTest () {
+		String FIELD_SHIP_CLASS = 'Ship Class';
+		String SHIP_CLASS = 'Small Feeder';
+		String NEW_SHIP_CLASS = 'Feeder';
+		Integer SHIP_LENGTH = 606;
 
-    //     Cargo_Ship__c cargoShip = new Cargo_Ship__c (
-    //         Name = shipName,
-    //         Ship_Serial_Number__c = sipSerialNumber,
-	// 		Capacity__c = 10,
-	// 		Length__c = 900,
-	// 		Width__c = 300,
-	// 		Height__c = 22,
-	// 		Ship_Class__c = 'Small Feeder'
-	// 	);
-	// 	insert cargoShip;
+		List<Cargo_Ship__c> listShip = new List<Cargo_Ship__c>();
 
-	// 	List <Cargo_Ship__c> cargoShipList = new List <Cargo_Ship__c>();
-	// 	for (Cargo_Ship__c updateCargoShip : [SELECT id FROM Cargo_Ship__c WHERE Name = :shipName]) {
-	// 		updateCargoShip.Ship_Class__c = 'Feeder';
-	// 		cargoShipList.add(updateCargoShip);
-	// 	}
-	// 	Test.startTest();
-	// 	try {
-	// 		update cargoShipList;
-    //     }
-    //     catch(Exception e) {
-    //         System.assert(e.getMessage().contains('The Field - ' + fieldShipClass + ' Can`t" be Changed!'));
-    //     }
-	// 	Test.stopTest();
-	// }
+		for (Integer i = 0; i <= 200; i++) {
+			String shipName = 'Mazda-' + String.valueOf(i);
+			String sipSerialNumber = 'STA-F' + String.valueOf(i);
+
+			Cargo_Ship__c cargoShip = new Cargo_Ship__c (
+				Name = shipName,
+				Ship_Serial_Number__c = sipSerialNumber,
+				Capacity__c = 10,
+				Length__c = SHIP_LENGTH,
+				Width__c = 300,
+				Height__c = 22,
+				Ship_Class__c = SHIP_CLASS
+			);
+			listShip.add(cargoShip);
+		}
+
+		List <Cargo_Ship__c> cargoShipList = new List <Cargo_Ship__c>();
+		for (Cargo_Ship__c updateCargoShip : [SELECT id FROM Cargo_Ship__c WHERE Length__c = :SHIP_LENGTH]) {
+			updateCargoShip.Ship_Class__c = NEW_SHIP_CLASS;
+			cargoShipList.add(updateCargoShip);
+		}
+		Test.startTest();
+		try {
+			update cargoShipList;
+		}
+		catch(Exception e) {
+			System.assert(e.getMessage().contains('The Field - ' + FIELD_SHIP_CLASS + ' Can`t" be Changed!'));
+		}
+		Test.stopTest();
+	}
 
 	// public static testMethod void sendEmailsToCapitanTest () {
 	// 	Integer randomNumber = Integer.valueof((Math.random() * 10000));
