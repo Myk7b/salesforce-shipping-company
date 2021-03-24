@@ -1,6 +1,6 @@
 @IsTest
 public class CargoShipTriggerUnitTest {
-    public static testMethod void updateDetailsFieldTest () {
+	public static testMethod void updateDetailsFieldTest () {
 		Integer SHIP_LENGTH = 606;
 		List<Cargo_Ship__c> listShip = new List<Cargo_Ship__c>();
 
@@ -26,7 +26,7 @@ public class CargoShipTriggerUnitTest {
 		for (Cargo_Ship__c shipDetails : [SELECT Name, Ship_Serial_Number__c, Ship_Details__c FROM Cargo_Ship__c WHERE Length__c = :SHIP_LENGTH]) {
 			System.assertEquals(shipDetails.Ship_Details__c, shipDetails.Name + ' ' + shipDetails.Ship_Serial_Number__c);
 		}
-    }
+	}
 
 	public static testMethod void deniedUpdateShipClassFieldTest () {
 		String FIELD_SHIP_CLASS = 'Ship Class';
@@ -105,8 +105,8 @@ public class CargoShipTriggerUnitTest {
 			cargoShipList.add(updateCargoShip);
 		}
 		Test.startTest();
-			update cargoShipList;
-			Integer emailInvocations = Limits.getEmailInvocations();
+		update cargoShipList;
+		Integer emailInvocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
 		system.assertEquals(201, emailInvocations, 'An email should be sent');
