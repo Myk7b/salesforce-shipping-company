@@ -74,13 +74,13 @@ public with sharing class CargoShipHelper {
 
 	public static void SendNotificationContractDueDateChanged(List<Cargo_Ship__c> newShip, Map<id, Cargo_Ship__c> oldShip) { //before update
 		List<User> user = [SELECT id FROM User WHERE userrole.name = :USER_ROLE_NAME];
+		CustomNotificationType notificationType = [SELECT Id FROM CustomNotificationType WHERE CustomNotifTypeName = :CUSTOM_NOTIFY_TYPE_NAME];
+
 		for (Cargo_Ship__c shipRec: newShip) {
 
 			Cargo_Ship__c shipOldRec = oldShip.get(shipRec.Id);
 			
 			if (shipRec.Contract_Due_Date__c != shipOldRec.Contract_Due_Date__c) {
-
-				CustomNotificationType notificationType = [SELECT Id FROM CustomNotificationType WHERE CustomNotifTypeName = :CUSTOM_NOTIFY_TYPE_NAME]; //refactor
 				
 				Messaging.CustomNotification notification = new Messaging.CustomNotification();
 				Set<String> addresses = new Set<String>();
