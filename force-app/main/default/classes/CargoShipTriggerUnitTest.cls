@@ -84,7 +84,7 @@ public class CargoShipTriggerUnitTest {
 		);
 		insert capitan;
 
-		for (Integer i = 0; i <= 200; i++) {
+		for (Integer i = 0; i <= 9; i++) {
 			String SHIP_NAME = 'Toyota-' + String.valueOf(i);
 			String SHIP_SERIAL_NUMBER = 'STA-L' + String.valueOf(i);
 
@@ -108,8 +108,7 @@ public class CargoShipTriggerUnitTest {
 		update cargoShipList;
 		Integer emailInvocations = Limits.getEmailInvocations();
 		Test.stopTest();
-
-		system.assertEquals(201, emailInvocations, 'An email should be sent');
+		system.assertEquals(1, emailInvocations, 'An email should be sent');
 	} 
 
 	public static testMethod void SendNotificationTest () {
