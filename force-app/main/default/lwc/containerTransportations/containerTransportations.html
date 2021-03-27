@@ -1,0 +1,11 @@
+<template>
+	<lightning-card title="Container Tracker" icon-name="utility:fulfillment_order">
+		<lightning-button-icon icon-name="utility:add" slot="actions" onclick={add}></lightning-button-icon>
+		<lightning-button label={saveLabel} icon-name="utility:save" slot="actions" onclick={handleSave}></lightning-button>
+		<lightning-button label={deleteLabel} icon-name="utility:delete" slot="actions" onclick={deleteSelRecords}></lightning-button>
+
+		<div class="slds-p-around_x-small">
+			<lightning-datatable key-field="id" data={tableData} columns={columns} onrowselection={prepareSelectedRows}></lightning-datatable>
+		</div>
+	</lightning-card>
+</template>
