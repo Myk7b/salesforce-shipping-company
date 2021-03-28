@@ -1,7 +1,7 @@
 public with sharing class ContainerTrackerController {
 	@AuraEnabled(cacheable=true)
 	public static List<Container_Tracker__c> getContainersTracker() {
-		return [SELECT Id, Name, Cargo_Ship__r.Name, Container__r.Name FROM Container_Tracker__c];
+		return [SELECT Id, Name, Cargo_Ship__r.Name, Container__r.Name, Container_Color__c FROM Container_Tracker__c WITH SECURITY_ENFORCED ORDER BY Cargo_Ship__r.Name];
 	}
 
 	@AuraEnabled
