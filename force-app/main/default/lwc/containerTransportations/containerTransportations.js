@@ -1,7 +1,7 @@
-import { LightningElement, wire, track, api } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { NavigationMixin } from "lightning/navigation";
+import { NavigationMixin } from 'lightning/navigation';
+import { showToast } from './showToast';
 import getContainersTracker from '@salesforce/apex/ContainerTrackerController.getContainersTracker';
 import deleteSelectedTrackers from '@salesforce/apex/ContainerTrackerController.deleteSelectedTrackers';
 const COLUMNS = [
@@ -66,24 +66,10 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
         const actionName = event.detail.action.name;  
 
 		if (actionName === 'Edit') {
-			this[NavigationMixin.Navigate]({
-				type: 'standard__recordPage',
-				attributes: {
-					recordId: recId,
-					objectApiName: 'Container_Tracker__c',
-					actionName: 'edit',
-				},
-			});
+			this.navigateToRecord(recId,'Container_Tracker__c', 'edit');
 		}
 		else if (actionName === 'View') {
-			this[NavigationMixin.Navigate]({
-				type: 'standard__recordPage',
-				attributes: {
-					recordId: recId,
-					objectApiName: 'Container_Tracker__c',
-					actionName: 'view',
-				},
-			});
+			this.navigateToRecord(recId,'Container_Tracker__c', 'view');
 		}
 	}
 
@@ -101,11 +87,7 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
 		deleteSelectedTrackers({selectedTrackersIdList: this.selectedTrackerIdList})
 		.then(result => {
 			this.dispatchEvent(
-				new ShowToastEvent({
-					title: 'Success',
-					message: 'Selected Trackers are DELETED!',
-					variant: 'success'
-				}),
+				showToast('success', 'Success', 'Selected Trackers are DELETED!')
 			);
 			this.template.querySelector('lightning-datatable').selectedRows = [];
 			return refreshApex(this.wiredDataTable);
@@ -114,11 +96,7 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
 			this.message = undefined;
 			this.error = error;
 			this.dispatchEvent(
-				new ShowToastEvent({
-					title: 'Error occurred manipulations with records',
-					message: error.body.pageErrors[0].message,
-					variant: 'error'
-				}),
+				showToast('error', 'Error occurred manipulations with records', error.body.pageErrors[0].message)
 			);
 			console.log("error", JSON.stringify(this.error));
 		});
@@ -130,11 +108,18 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
 		for (let i = 0; i < selectedRows.length; i++) {
 			this.selectedTrackerIdList.push(selectedRows[i].Id);
 		}
-		if (selectedRows.length > 0) {
-			this.isDeleteButtonDisabled = false;
-		}
-		else {
-			this.isDeleteButtonDisabled = true;
-		}
+		this.isDeleteButtonDisabled = selectedRows.length <= 0;
+	}
+
+	navigateToRecord(recordId, objectApiName, actionName) {
+		console.log("navigateToRecord");
+		this[NavigationMixin.Navigate]({
+			type: 'standard__recordPage',
+			attributes: {
+				recordId: recordId,
+				objectApiName: objectApiName,
+				actionName: actionName
+			},
+		});
 	}
 }
