@@ -1,5 +1,6 @@
 <template>
 	<lightning-card title="Container Tracker" icon-name="utility:fulfillment_order">
+		<lightning-button-icon icon-name="utility:refresh" slot="actions" alternative-text="Refresh" title="Refresh" onclick={refreshTable}></lightning-button-icon>
 		<lightning-button label={addNewLabel} icon-name="utility:add" slot="actions" onclick={navigateToNewRecordPage}></lightning-button>
 		<lightning-button disabled={isDeleteButtonDisabled} label={deleteLabel} icon-name="utility:delete" slot="actions" onclick={deleteSelRecords}></lightning-button>
 

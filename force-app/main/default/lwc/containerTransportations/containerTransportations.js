@@ -61,16 +61,8 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
 		}
 	}
 
-	handleRowAction(event) {
-		const recId =  event.detail.row.Id;  
-        const actionName = event.detail.action.name;  
-
-		if (actionName === 'Edit') {
-			this.navigateToRecord(recId,'Container_Tracker__c', 'edit');
-		}
-		else if (actionName === 'View') {
-			this.navigateToRecord(recId,'Container_Tracker__c', 'view');
-		}
+	refreshTable() {
+		refreshApex(this.wiredDataTable);
 	}
 
 	navigateToNewRecordPage() {
@@ -81,6 +73,18 @@ export default class ContainerTransportations extends NavigationMixin (Lightning
 				actionName: 'new'
 			},
 		});
+	}
+
+	handleRowAction(event) {
+		const recId =  event.detail.row.Id;  
+        const actionName = event.detail.action.name;  
+
+		if (actionName === 'Edit') {
+			this.navigateToRecord(recId,'Container_Tracker__c', 'edit');
+		}
+		else if (actionName === 'View') {
+			this.navigateToRecord(recId,'Container_Tracker__c', 'view');
+		}
 	}
 
 	deleteSelRecords() {

@@ -1,4 +1,5 @@
 import { LightningElement, wire, track, api } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
 import getContainersCount from '@salesforce/apex/ContainerCounterController.getContainersCount';
 const COLUMNS = [
 	{label: 'Ship Name', fieldName: 'Name'},
@@ -14,9 +15,11 @@ export default class ContainerCounter extends LightningElement {
 
 	columns = COLUMNS;
 	@track tableData;
+	@track wiredDataTable = [];
 
 	@wire(getContainersCount)
 	containerHandler(result) {
+		this.wiredDataTable = result;
 		this.tableData = [];
 		if(result.data) {
 			let containerColorsList = {};
@@ -61,5 +64,9 @@ export default class ContainerCounter extends LightningElement {
 			alert(result.error);
 			console.log("error", JSON.stringify(result.error));
 		}
+	}
+
+	refreshTable() {
+		refreshApex(this.wiredDataTable);
 	}
 }
